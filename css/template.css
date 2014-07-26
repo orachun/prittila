@@ -2,7 +2,8 @@
 
 /*main*/
 body { padding-top: 50px; font: 14px/150% Arial,Helvetica,sans-serif,tahoma;}
-.main-logo {font-family: 'Fredericka the Great', cursive; font-size: 3em;}
+.main-logo a {font-family: 'Fredericka the Great', cursive; font-size: 2.5em; color:white}
+.main-logo a:hover{text-decoration: none;}
 .bottom-margin {margin-bottom: 10px;}
 .slide .item img {width: 100%;height:auto;}
 
@@ -23,3 +24,5 @@ body { padding-top: 50px; font: 14px/150% Arial,Helvetica,sans-serif,tahoma;}
 /*order-modal*/
 .ordered-item-list {height: 60%; overflow:auto;}
 .ordered-item-list .ordered-item .thumb {width: 100px; height:auto;}
+
+#custom-content-panel {padding: 10px; margin-top: 10px;}

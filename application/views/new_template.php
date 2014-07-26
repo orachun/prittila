@@ -29,6 +29,15 @@
         
         <script src="<?php echo base_url(); ?>template_asset/js/utils.js"></script>
         <script src="<?php echo base_url(); ?>template_asset/js/sha256.js"></script>
+        
+        <!-- Add fancyBox -->
+        <link rel="stylesheet" href="<?php echo base_url();?>libs/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+        <script type="text/javascript" src="<?php echo base_url();?>libs/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
+
+        <!-- Optionally add helpers - button, thumbnail and/or media -->
+        <link rel="stylesheet" href="<?php echo base_url();?>libs/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+        <script type="text/javascript" src="<?php echo base_url();?>libs/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
     </head>
     <body>
         <?php fb_load_js_sdk();?>
@@ -42,7 +51,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <span class="navbar-brand main-logo">*PRITTILA*</span>
+                    <span class="navbar-brand main-logo"><a href="<?php echo base_url();?>">*PRITTILA*</a></span>
                     
                 </div>
 
@@ -76,9 +85,15 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-        <?php echo $slideshow; ?>
+        
 
         <div class="container">
+            <?php if($custom_contents):?>
+                <div id="custom-content-panel" class="panel panel-primary">
+                <?php echo $contents;?>
+                </div>
+            <?php else:?>
+                <?php echo $slideshow; ?>
             <div class="row bottom-margin">&nbsp;</div>
             <div class="row bottom-margin">
                 <div class="col-md-9 col-sm-12">
@@ -129,8 +144,8 @@
                     </div>
                 </div>
             </div>
+        <?php endif;?>
         </div>
-        
         <div id="footer">
 			<?php if (!empty($footer)) echo $footer; ?>
         </div>

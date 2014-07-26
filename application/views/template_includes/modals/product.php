@@ -1,5 +1,5 @@
 <!-- product detail modal -->
-<div class="modal fade" id="product-detail-modal" tabindex="-1" role="dialog" aria-labelledby="product-detail-modal-label" aria-hidden="true">
+<div class="modal" id="product-detail-modal" tabindex="-1" role="dialog" aria-labelledby="product-detail-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

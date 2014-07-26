@@ -68,6 +68,7 @@ class Product extends CI_Controller
         );
         $data['slideshow'] = $this->_main_slide_show();
 		$data['contents'] = $this->load->view('/product/product_grid', $data, TRUE);
+        $data['custom_contents'] = false;
 		$this->load->view('new_template', $data);
 	}
 	
@@ -86,13 +87,9 @@ class Product extends CI_Controller
 		if(!$ajax)
 		{
 			$data['title'] = 'Product Detail';
-		    $data['_css'] = array(
-		        'product',
-		        'product_detail'
-		    );
-			$data['footer'] = $this->Product_model->random_products();
 			$data['contents'] = $this->load->view('product/product_detail', $data, TRUE);
-			$this->load->view('template', $data);
+            $data['custom_contents'] = true;
+			$this->load->view('new_template', $data);
 		}
 		else
 		{

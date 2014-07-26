@@ -1,34 +1,5 @@
 <div class="product-detail product-detail-<?php echo $product_id; ?>">  
-    <div class="row bottom-margin">         
-        <!-- product slide show -->
-        <div class="col-md-4 col-sm-6">
-            <div id="product-detail-slideshow" class="carousel slide" data-ride="carousel" data-interval="false">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <?php for ($i = 0; $i < count($images); $i++): ?>
-                        <li data-target="#carousel-example-generic" data-slide-to="<?php echo $i;?>" class="<?php if ($i == 0) echo 'active'; ?>"></li>
-                    <?php endfor; ?>
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <?php for ($i = 0; $i < count($images); $i++): ?>
-                        <div class="item<?php if ($i == 0) echo ' active'; ?>">
-                            <img src="<?php echo $images[$i]; ?>" />
-                        </div>
-                    <?php endfor; ?>
-                </div>
-
-                <!-- Controls -->
-                <a class="left carousel-control" href="#product-detail-slideshow" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="right carousel-control" href="#product-detail-slideshow" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
-            </div>
-
-        </div>
+   <div class="row bottom-margin">         
 
         <!--product detail-->
         <div class="col-md-8 col-sm-6 product-detail-pane">
@@ -113,9 +84,11 @@
                     </div>
                 </div>
             </form>
+            
+
             <div class="row bottom-margin">
                 <div class="col-md-12">
-                    <div class="desc">
+                    <div class="desc well">
                         <?php echo $desc; ?>
                     </div>
                     <?php like_btn(base_url() . 'index.php/product/detail/' . $product_id); ?>
@@ -127,5 +100,34 @@
                 </div>
             </div>
         </div>
+        <!-- product slide show -->
+        <div class="col-md-4 col-sm-6">
+            <?php for ($i = 0; $i < count($images); $i++): ?>
+                <div class="col-md-12">
+                    <a class="product-img" rel="fancybox-thumb" href="<?php echo $images[$i]; ?>" title="">
+                        <img class="col-xs-12" src="<?php echo $images[$i]; ?>" alt="" />
+                    </a>
+                </div>
+            <?php endfor; ?>
+        </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    $(function() {
+        $(".product-detail .product-img").fancybox({
+            prevEffect	: 'none',
+            nextEffect	: 'none',
+            helpers	: {
+                title	: {
+                    type: 'outside'
+                },
+                thumbs	: {
+                    width	: 50,
+                    height	: 50
+                }
+            },
+        });
+    });
+</script>
