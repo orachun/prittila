@@ -1,0 +1,7 @@
+<div class="product-grid-item" pid="<?php echo $pid;?>">
+	<a href="<?php echo base_url().'index.php/product/detail/'.$pid;?>" target="_blank">
+		<img src="<?php echo $img;?>"/>
+		<div class="pname"><?php echo $name;?></div>
+		<div class="pprice ui-corner-top"><?php echo $price;?></div>
+	</a>
+</div>

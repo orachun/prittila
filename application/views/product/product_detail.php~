@@ -1,0 +1,67 @@
+<div class="product-detail product-detail-<?php echo $pid;?>">
+<div class="product-detail-gallery">
+	<ul class="image-gallery">
+		<?php for($i=0;$i<count($images);$i++):?>
+		<li><img src="<?php echo $thumbs[$i];?>" ref="<?php echo $images[$i];?>"/></li>
+		<?php endfor;?>
+	</ul>
+</div>
+<div class="product-detail-content">
+	<div class="pname"><?php echo $name;?></div>
+	<div class="pprize"><?php echo sprintf("%.2f",$unit_price);?> บาท</div>
+		
+	<div class="buy-form ui-corner-all">
+		<div class="form-item form-item-color"><label class="label">สี</label>
+			<?php foreach ($avail_colors as $c => $code)
+			{
+				echo '<label class="radio-item"><input name="color" type="radio" value="'.$c.'"/><span style="width:10px;background-color:'.$code.';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></label>';
+			}
+			?>
+		</div>
+		<div class="form-item form-item-size"><label class="label">ขนาด</label>
+			<?php foreach ($avail_sizes as $s)
+			{
+				echo '<label class="radio-item"><input name="size" type="radio" value="'.$s.'"/>'.$s.'</label>';
+			}
+			?>
+		</div>
+		<div class="form-item form-item-quantity"><label class="label">จำนวน</label>
+			<?php for ($i=1;$i<=3;$i++)
+			{
+				echo '<label class="radio-item"><input name="size" type="radio" value="'.$i.'"/>'.$i.'</label>';
+			}
+			?>
+			<label class="radio-item">
+				<input name="size" type="radio" value="4"/>
+				<input class="quantity" id="quantity" type="text" name="quantity" value="4" />
+			</label>
+			ชิ้น
+		</div>
+		<div class="form-item form-item-buy-btn ui-corner-all"><img src="<?php echo base_url();?>images/shopping-bag.png">ซื้อ</div>
+	</div>
+	<div class="pdesc"><?php echo $desc;?></div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$('.product-detail-<?php echo $pid;?> .product-detail-gallery .image-gallery').PikaChoose(
+			{
+				transition:[1], 
+				carousel:true, 
+				autoPlay:false, 
+				showCaption:false, 
+				carouselOptions:{wrap:'circular'}, 
+				thumbOpacity:1.0
+			}
+		);
+		
+		$('.product-detail-<?php echo $pid;?> .form-item-quantity .quantity').keyup(function(){
+				$(this).prev().attr('value', $(this).val());
+		});
+		
+		$('.product-detail-<?php echo $pid;?> .form-item-buy-btn').click(function(){
+			console.log("clicked");
+			openTab($(".shopping-bag-summary-tab"));	
+		});
+	});
+</script>
+</div>

@@ -1,0 +1,50 @@
+<?php
+
+class User extends CI_Controller
+{
+	/*
+	const	IS_LOGGED_IN = "IS_LOGGED_IN";
+	const	EMAIL = "EMAIL";
+	const	PASS = "PASS";
+	*/
+	
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->library('session');
+	}	
+	
+	public function login()
+	{
+		$email = $this->input->post("email");
+		$pass = $this->input->post("pass");
+		
+		$this->session->set_userdata('some_name', 'some_value');
+	}
+
+	public function logout()
+	{
+		
+	}
+
+	public function register()
+	{
+		$login = $this->input->post("login");
+		$pass = $this->input->post("pass");
+		$fullname = $this->input->post("name");
+		$addr = $this->input->post("addr");
+		$tel = $this->input->post("tel");
+		$email = $this->input->post("email");
+		echo "Registered");
+	}
+
+	public function tab_content()
+	{
+		if($this->session->userdata('IS_LOGGED_IN') === FALSE)
+		{
+			$this->load->view('user/login');
+		}
+	}
+}
+
+?>

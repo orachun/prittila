@@ -1,0 +1,25 @@
+@import url(http://fonts.googleapis.com/css?family=Fredericka+the+Great);
+
+/*main*/
+body { padding-top: 50px; font: 14px/150% Arial,Helvetica,sans-serif,tahoma;}
+.main-logo {font-family: 'Fredericka the Great', cursive; font-size: 3em;}
+.bottom-margin {margin-bottom: 10px;}
+.slide .item img {width: 100%;height:auto;}
+
+#main-navbar .fb-btn-container {padding: 15px;}
+
+.main-product-panel .dropdown-container {margin-bottom:10px;}
+.product {margin-bottom: 10px;}
+.product .thumb-img {margin: auto; width:100%;}
+.product .caption {text-align:center;}
+
+/*product-detail-modal*/
+#product-detail-modal .product-detail-pane {min-height:400px;}
+#product-detail-modal .buy-option-label {width: 45px; display: inline-block;}
+#product-detail-modal #buy-btn {width: 270px;}
+#shopping-bag-modal .selected-item input[name="qty"] {width: 50px;}
+
+
+/*order-modal*/
+.ordered-item-list {height: 60%; overflow:auto;}
+.ordered-item-list .ordered-item .thumb {width: 100px; height:auto;}

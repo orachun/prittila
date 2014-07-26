@@ -1,0 +1,14 @@
+<div class="shopping-bag-summary">
+<?php foreach ($this->cart->contents() as $items): ?>
+	<div class="selected-item" rowid="<?php echo $items['rowid']?>">
+		<?php echo $items['qty'];?> x 
+		<img src="<?php echo $this->cart->product_options($items['rowid'])['thumb'];?>"/> 
+		<?php echo $items['name'];?>
+		(<?php echo $this->cart->product_options($items['rowid'])['size'];?> 
+		<span style="background-color:<?php echo $this->cart->product_options($items['rowid'])['color'];?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>)
+		<?php echo $this->cart->format_number($items['price']);?> บาท
+	</div>
+<?php endforeach;?>
+<div class="total">รวม <?php echo sprintf("%.2f", $this->cart->total()); ?> บาท</div>
+</div>
+

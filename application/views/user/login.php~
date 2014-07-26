@@ -1,0 +1,41 @@
+<div class="login-form">
+	<div class="login">
+		<h1>ลงชื่อเข้าใช้</h1>
+		<div class="form-item form-item-email"><label class="label">อีเมล์</label><input name="email" type="text"/></div>
+		<div class="form-item form-item-pass"><label class="label">รหัสผ่าน</label><input name="pass" type="password"/></div>
+		<div class="form-item form-item-login-btn">
+			<span class="login-btn ui-corner-all button">ลงชื่อเข้าใช้</span>
+			<span class="register-btn ui-corner-all button">สมัครสมาชิก</span>
+		</div>
+	</div>
+	
+	<div class="register">
+		<h1>สมัครสมาชิก</h1>
+		<div class="form-item form-item-email"><label class="label">อีเมล์</label><input name="email" type="text"/></div>
+		<div class="form-item form-item-pass"><label class="label">รหัสผ่าน</label><input name="pass" type="password"/></div>
+		<div class="form-item form-item-confirm-pass"><label class="label">ยืนยันรหัสผ่าน</label><input name="confirm_pass" type="password"/></div>
+		<div class="form-item form-item-name"><label class="label">ชื่อ</label><input name="name" type="text"/></div>
+		<div class="form-item form-item-addr"><label class="label">ที่อยู่</label><textarea name="addr"></textarea></div>
+		<div class="form-item form-item-tel"><label class="label">โทร.</label><input name="tel" type="text"/></div>
+		<div class="form-item form-item-register-btn"><span class="register-btn ui-corner-all button">สมัครสมาชิก</span></div>
+	</div>
+</div>
+
+<script type="text/javascript" >
+	$('.login-form .register').hide();
+	$('.login-form .login .register-btn').click(function(){
+		$('.login-form .login').slideUp();
+		$('.login-form .register').slideDown();
+	});
+	
+	/*$('.login-form .register-btn').click(function () {
+		//validate form
+		$.post('<?php echo base_url();?>index.php/user/register', 
+			$('.login-form .register').serialize(), 
+			function (data) {
+			alert(data);
+		});
+	});*/
+	
+
+</script>
