@@ -9,7 +9,7 @@
     
     <form class="add-slide">
         Link: <?php echo base_url();?><input type="text" name="link" size="50"/>
-        <input type="hidden" name="img-name"/>
+        <input id="img-name" type="hidden" name="img-name"/>
         <div class="img-upload"></div>
         <input type="button" class="add-slide-btn" value="Add"/>
     </form>
@@ -17,7 +17,17 @@
 
 <script>
 $(function(){
-    ajax_upload_form('.slide-show-list .img-upload', '.slide-show-list .add-slide input[name="img-name"]', '<input type="button" value="Upload Img"/>');
+    
+    create_upload_form('.slide-show-list .add-slide .img-upload', function(response){
+        $('.slide-show-list .add-slide #img-name').val(response);
+    }, function(err)
+    {
+        alert(err);
+    });
+    
+    
+    
+//    ajax_upload_form('.slide-show-list .img-upload', '.slide-show-list .add-slide input[name="img-name"]', '<input type="button" value="Upload Img"/>');
     $('.slide-show-list .add-slide .add-slide-btn').click(function(){
         $.post(base_url+'index.php/admin/add_slideshow', $('.slide-show-list .add-slide').serialize(),
             function(data){

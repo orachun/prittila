@@ -33,6 +33,13 @@
                             <input type="text" name="amount" class="form-control" id="amount" placeholder="จำนวนเงิน">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="inputslip" class="col-sm-3 control-label">สลิป (ถ้ามี)</label>
+                        <div class="col-sm-9">
+                            <div id="slip-uploader"></div
+                            <input type="hidden" id="slip" name="slip"/>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
@@ -60,5 +67,11 @@
                 notify('error', 'แจ้งชำระเงิน', res);
             }
         });
+        
+    });
+    create_upload_form('#payment-inform-modal #slip-uploader', function(filename){
+        $('#payment-inform-modal #slip').val(filename);
+    }, function(errorMsg){
+        alert(errorMsg);
     });
 </script>

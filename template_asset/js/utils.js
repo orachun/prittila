@@ -42,3 +42,62 @@ function form_data_to_JSON(form_selector)
 	}
     return form_data;
 }
+
+
+
+function create_upload_form(container_selector, success_callback, error_callback, filename_placeholder)
+{
+    var form = 
+        '<form class="upload-form" action="'+base_url+'index.php/others/upload" method="post" enctype="multipart/form-data">'
+            + '<input class="file" type="file" name="file">'
+            + '<div class="progress">'
+                + '<div class="bar"></div >'
+                + '<div class="percent">0%</div >'
+            + '</div>'
+        + '</form>';
+
+    $(container_selector).append(form);
+    var progress = $(container_selector+' .progress');
+    var bar = $(container_selector+' .bar');
+    var percent = $(container_selector+' .percent');
+    progress.hide();
+
+    $(container_selector+' .upload-form .file').change(function(){
+        $(container_selector+' .upload-form').submit();
+    });
+    $(container_selector+' .upload-form').ajaxForm({
+        beforeSend: function() {
+            var percentVal = '0%';
+            progress.show();
+            bar.width(percentVal);
+            percent.html(percentVal);
+        },
+        uploadProgress: function(event, position, total, percentComplete) {
+            var percentVal = percentComplete + '%';
+            bar.width(percentVal);
+            percent.html(percentVal);
+        },
+        success: function() {
+            var percentVal = '100%';
+            bar.width(percentVal);
+            percent.html(percentVal);
+        },
+        complete: function(xhr) {
+            var res = xhr.responseText;
+            if(res.indexOf('Error:') == 0)
+            {
+                error_callback(res);
+            }
+            else
+            {
+                $(filename_placeholder).val(res);
+                success_callback(res);
+            }
+        }
+    }); 
+}
+
+function reset_upload_form(container_selector)
+{
+    $(container_selector+' .upload-form').reset();
+}

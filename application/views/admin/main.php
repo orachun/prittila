@@ -12,6 +12,7 @@
         <?php echo link_tag(base_url() . 'libs/pnotify/jquery.pnotify.default.css'); ?>
         <script src="<?php echo base_url(); ?>libs/jquery.waiting/jquery.waiting.js"></script>
         <?php echo link_tag(base_url('libs/jquery.waiting/waiting.css')); ?>
+        <script src="<?php echo base_url(); ?>libs/jquery.form.js"></script>
         <script src="<?php echo base_url(); ?>template_asset/js/utils.js"></script>
         <script src="<?php echo base_url(); ?>template_asset/js/sha256.js"></script>
 
