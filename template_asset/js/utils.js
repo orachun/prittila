@@ -57,9 +57,9 @@ function create_upload_form(container_selector, success_callback, error_callback
         + '</form>';
 
     $(container_selector).append(form);
-    var progress = $(container_selector+' .progress');
-    var bar = $(container_selector+' .bar');
-    var percent = $(container_selector+' .percent');
+    var progress = $(container_selector+' .upload-form .progress');
+    var bar = $(container_selector+' .upload-form .bar');
+    var percent = $(container_selector+' .upload-form .percent');
     progress.hide();
 
     $(container_selector+' .upload-form .file').change(function(){
@@ -99,5 +99,6 @@ function create_upload_form(container_selector, success_callback, error_callback
 
 function reset_upload_form(container_selector)
 {
-    $(container_selector+' .upload-form').reset();
+    $(container_selector+' .upload-form')[0].reset();
+    $(container_selector+' .upload-form .progress').hide();
 }

@@ -36,7 +36,7 @@
                     <div class="form-group">
                         <label for="inputslip" class="col-sm-3 control-label">สลิป (ถ้ามี)</label>
                         <div class="col-sm-9">
-                            <div id="slip-uploader"></div
+                            <div id="slip-uploader"></div>
                             <input type="hidden" id="slip" name="slip"/>
                         </div>
                     </div>

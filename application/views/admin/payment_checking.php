@@ -25,7 +25,14 @@
 				
 				<?php if(isset($o['payment'])):?>
 					<td><?php echo $o['payment']['amount'];?></td>
-					<td><?php echo $o['payment']['inform_date'];?></td>
+					<td>
+                        <?php echo $o['payment']['inform_date'];?>
+                        <?php if($o['payment']['slip'] !== FALSE)
+                        {
+                            echo '(<a href="'.$o['payment']['slip'].'" target="_blank">slip</a>)';
+                        }
+                        ?>
+                    </td>
 					<td><?php echo $o['payment']['paid_date'];?></td>
 				<?php else:?>
 					<td>&nbsp;</td>

@@ -123,8 +123,18 @@ class Admin extends CI_Controller
 		{
 			if ($o['status'] == 'P' || $o['status'] == 'C' || $o['status'] == 'D')
 			{
-				$payment_inform = $this->db->get_where('payment_inform', array('order_id' => $data['orders'][$i]['order_id']))->result_array();
+				$payment_inform = $this->db->get_where('payment_inform', 
+                        array('order_id' => $data['orders'][$i]['order_id']))->result_array();
 				$data['orders'][$i]['payment'] = $payment_inform[0];
+                $slip = 'uploads/payment_slips/'.$data['orders'][$i]['order_id'].'.jpg';
+                if(file_exists(___config('base_path').$slip))
+                {
+                    $data['orders'][$i]['payment']['slip'] = base_url($slip);
+                }
+                else
+                {
+                    $data['orders'][$i]['payment']['slip'] = FALSE;
+                }
 			}
 		}
 		$this->load->view('admin/payment_checking', $data);

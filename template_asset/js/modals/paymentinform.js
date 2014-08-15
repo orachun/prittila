@@ -7,6 +7,8 @@ $(function(){
         $('#payment-inform-modal').waiting();
         $('#payment-inform-modal #paydatetime').val('');
         $('#payment-inform-modal #amount').val('');
+        $('#payment-inform-modal #slip').val('');
+        reset_upload_form('#payment-inform-modal #slip-uploader');
         $.get(base_url+'index.php/user/user_detail', function(data){
             if(data != null)
             {

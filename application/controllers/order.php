@@ -94,7 +94,7 @@ class Order extends CI_Controller
             $this->db->where('order_id', $order->order_id);
             $this->db->update('customer_order', array('status' => 'P'));
         }
-        $file = $this->input->post('file');
+        $file = $this->input->post('slip');
         if(!empty($file))
         {
             copy(___config('base_path').'uploads/temp/'.$file, ___config('base_path').'uploads/payment_slips/'.$order->order_id.'.jpg');
