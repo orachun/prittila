@@ -30,14 +30,10 @@ class Product extends CI_Controller
 	public function index($cat = '-1',$sort = 'product_id', $sort_order = 'desc', $keyword = 'none', $page = 1)
 	{
         $this->load->library('pagination');
-        $config['base_url'] = base_url().'index.php/product/index/'.$cat.'/'.$sort.'/'.$sort_order.'/'.$keyword;
-        $config['uri_segment'] = 7;
-        $config['total_rows'] = $this->Product_model->total_product($cat, $keyword);
-        $config['per_page'] = ___config('items_per_page'); 
-        $config['use_page_numbers'] = TRUE;
-        $config['first_link'] = 'หน้าแรก';
-        $config['last_link'] = 'หน้าสุดท้าย';
-        $this->pagination->initialize($config); 
+        
+        $data['total_products'] = $this->Product_model->total_product($cat, $keyword);
+        $data['products_per_page'] = ___config('items_per_page'); 
+        $data['total_pages'] = ceil($data['total_products']/$data['products_per_page']);
         
         $data['args'] = array(
             'cat' => $cat,
@@ -46,6 +42,7 @@ class Product extends CI_Controller
             'keyword' => $keyword,
             'page' => $page
         );
+        $data['all_cats'] = $this->Product_model->get_cat();
         $data['pager'] = '<div class="pager">'.$this->pagination->create_links().'</div>';
 		$data['title'] = 'Product list';
 		$data['best_seller'] = $this->Product_model->best_seller_products();
