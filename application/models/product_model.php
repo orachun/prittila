@@ -182,7 +182,7 @@ class Product_model extends CI_Model
 			$result_file = $img_dir.'imgs/'.$i.'.jpg';
 			image_download($u, $result_file, $img_dir.'thumbs/'.$i.'.jpg');
 			
-			//post_to_fb($result_file, $fb_desc);
+			post_to_fb($result_file, $fb_desc);
         }
 		
     }

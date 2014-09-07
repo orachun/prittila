@@ -4,7 +4,7 @@ $(function(){
         
         var pid = $(this).attr('pid');	
         $('#product-detail-modal .modal-body').waiting();
-        $.get(base_url+'/index.php/product/detail/'+pid, function(response){
+        $.get(base_url+'index.php/product/detail/'+pid, function(response){
             $('#product-detail-modal .modal-title').html(response['title']);
             $('#product-detail-modal .modal-body').html(response['body']);
             $('#product-detail-modal .modal-body').waiting('done');
