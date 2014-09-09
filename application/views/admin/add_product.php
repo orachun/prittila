@@ -61,10 +61,19 @@
 			$('.add-product input[name="color"]:checked').each(function(index, element){
 				color += $(element).val()+";";
 			});
-			$.post(base_url+'index.php/admin/add_product_submit', $('.add-product form').serialize()+"&color="+color+"&size="+size+'&access_token='+fb_access_token, function(data){
-				$('.add-product').parent().load(base_url+'index.php/admin/add_product_form');
-				$('body').append('<div>'+data+'</div>');
-			});
+			$.post(base_url+'index.php/admin/add_product_submit', $('.add-product form').serialize()+"&color="+color+"&size="+size
+                            //    +'&access_token='+fb_access_token
+                        , function(data){
+				var urls = $('.add-product form textarea[name="imgs"]').val().split("\n");
+                                
+                                fb_post_photos(urls, data.fb_desc, function(){
+                                    $('.add-product').parent().load(base_url+'index.php/admin/add_product_form');
+                                    $('body').append('<div>'+data+'</div>');
+                                }, function(){
+                                    alert('Cannot upload photo to facebook');
+                                });
+                                
+			}, 'json');
 		});
 
 		initEditor('.add-product textarea[name="desc"]');

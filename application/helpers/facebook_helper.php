@@ -85,7 +85,7 @@ function post_to_fb($img_path, $desc) {
         $access_token = $_POST['access_token'];
     }
     // Get the page access token
-    $accounts = $facebook->api('/orachun/accounts', 'GET', array(
+    $accounts = $facebook->api('/me/accounts', 'GET', array(
         'access_token' => $access_token
     ));
     foreach ($data as $account) {

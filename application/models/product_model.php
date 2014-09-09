@@ -133,7 +133,6 @@ class Product_model extends CI_Model
     {
 		$this->load->helper('image');
 		$this->load->helper('facebook');
-		
 		//Save product data
         $this->db->insert('product', array(
             'name' => $p['name'],
@@ -172,19 +171,22 @@ class Product_model extends CI_Model
         umask($old);
         $img_urls = preg_split("/\r\n|\n|\r/", $p['imgs']);
 		
-		$fb_desc = prepare_fb_desc($fb_desc, $p, base_url().'product/detail/'.$pid);
 		
+		$fb_desc = prepare_fb_desc($fb_desc, $p, base_url().'index.php/product/detail/'.$pid);
 		image_grid_item_prepare($img_urls[0], $img_dir.'thumb.jpg');
-        foreach($img_urls as $i=>$u)
-        {
-            if(empty($u)) continue;
-			$u = preg_replace('/\s+/', '', $u);
-			$result_file = $img_dir.'imgs/'.$i.'.jpg';
-			image_download($u, $result_file, $img_dir.'thumbs/'.$i.'.jpg');
-			
-			post_to_fb($result_file, $fb_desc);
-        }
-		
+//        foreach($img_urls as $i=>$u)
+//        {
+//            if(empty($u)) continue;
+//			$u = preg_replace('/\s+/', '', $u);
+//			$result_file = $img_dir.'imgs/'.$i.'.jpg';
+//			image_download($u, $result_file, $img_dir.'thumbs/'.$i.'.jpg');
+//			
+//			post_to_fb($result_file, $fb_desc);
+//        }
+	return array(
+            'pid' => $pid,
+            'fb_desc' => $fb_desc,
+            );	
     }
     
     

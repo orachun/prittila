@@ -74,7 +74,8 @@ class Admin extends CI_Controller
 		);
 		$p['color'] = explode(';', $this->input->post('color'));
 		$p['size'] = explode(';', $this->input->post('size'));
-		$this->Product_model->add_product($p, $this->input->post('fb_desc'));
+		$result = $this->Product_model->add_product($p, $this->input->post('fb_desc'));
+                echo json_encode($result);
 	}
 
 	public function store_order()
@@ -266,6 +267,7 @@ class Admin extends CI_Controller
 		$data['products'] = $this->Product_model->get_admin_products();
 		$this->load->view('admin/products', $data);
 	}
+        
 	
 	public function set_product_status()
 	{

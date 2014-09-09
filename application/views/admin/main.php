@@ -15,6 +15,7 @@
         <script src="<?php echo base_url(); ?>libs/jquery.form.js"></script>
         <script src="<?php echo base_url(); ?>template_asset/js/utils.js"></script>
         <script src="<?php echo base_url(); ?>template_asset/js/sha256.js"></script>
+        <script src="<?php echo base_url(); ?>template_asset/js/facebook.js"></script>
 
 
         <script src="<?php echo base_url(); ?>libs/tinymce/tinymce.min.js"></script>
@@ -26,7 +27,7 @@
         </style>
     </head>
     <body>
-        <?php //fb_load_js_sdk(true);?>
+        <?php fb_load_js_sdk(true);?>
 
         <div id="main-panel" class="panel panel-primary">
             <a href="<?php echo base_url(); ?>">Home</a>
