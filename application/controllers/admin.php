@@ -72,7 +72,7 @@ class Admin extends CI_Controller
 			'supplier_product_url' => $this->input->post('supplier_product_url'),
 			'imgs' => $this->input->post('imgs'),
 		);
-		$p['color'] = explode(';', $this->input->post('color'));
+		$p['color'] = explode("\n", $this->input->post('color'));
 		$p['size'] = explode(';', $this->input->post('size'));
 		$result = $this->Product_model->add_product($p, $this->input->post('fb_desc'));
                 echo json_encode($result);

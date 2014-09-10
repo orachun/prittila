@@ -20,8 +20,11 @@
 
 //$config['base_url']	= 'http://prittila.tk';
 
-$config['base_url'] = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-$config['base_path'] = '/home/u431920805/public_html';
+//$config['base_url'] = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
+//$config['base_path'] = '/home/u431920805/public_html';
+
+$config['base_url'] = 'http://localhost/~chun/prittila/prittila';
+$config['base_path'] = '/home/chun/public_html/prittila/prittila';
 
 /*
 |--------------------------------------------------------------------------

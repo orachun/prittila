@@ -14,7 +14,8 @@ foreach ($this->cart->contents() as $items):
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
             </h4>
-            <strong>สี</strong> <?php echo th_color($options['color']); ?>
+            <strong>สี</strong> <?php //echo th_color($options['color']); 
+            echo $options['color'];?>
             <strong>ขนาด</strong> <?php echo $options['size']; ?> <br/>
             <strong>ราคา</strong> <?php echo $this->cart->format_number($items['price']); ?> บาท
             <div class="row">

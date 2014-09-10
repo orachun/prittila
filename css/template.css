@@ -1,7 +1,24 @@
 @import url(http://fonts.googleapis.com/css?family=Fredericka+the+Great);
 
+@font-face {
+    font-family: Kunlasatri;
+    src: url(‘/template_asset/fonts/Kunlasatri.eot’); 
+}
+@font-face {
+    font-family: Kunlasatri;
+    src: url(‘/template_asset/fonts/Kunlasatri.eot’) format(‘eot’)  
+}
+@font-face {
+    font-family: Kunlasatri;
+    src: url(‘/template_asset/fonts/Kunlasatri.woff’) format(‘woff’)  
+}
+@font-face {
+    font-family: Kunlasatri;
+    src: url(‘/template_asset/fonts/Kunlasatri.ttf’)  format(‘truetype’)  
+}
+
 /*main*/
-body { padding-top: 50px; font: 14px/150% Arial,Helvetica,sans-serif,tahoma;}
+body { padding-top: 50px; font: 14px/150%; font-family:  'Kunlasatri, Arial,Helvetica,sans-serif,tahoma';}
 .main-logo a {font-family: 'Fredericka the Great', cursive; font-size: 2.5em; color:white}
 .main-logo a:hover{text-decoration: none;}
 .bottom-margin {margin-bottom: 10px;}
@@ -15,9 +32,9 @@ body { padding-top: 50px; font: 14px/150% Arial,Helvetica,sans-serif,tahoma;}
 .product .caption {text-align:center;}
 
 /*product-detail-modal*/
-#product-detail-modal .product-detail-pane {min-height:400px;}
-#product-detail-modal .buy-option-label {width: 45px; display: inline-block;}
-#product-detail-modal #buy-btn {width: 270px;}
+.product-detail-pane {min-height:400px;}
+.product-detail-pane .buy-option-label { display: inline-block; font-size: 1.1em;}
+.product-detail-pane #buy-btn {width: 270px;}
 #shopping-bag-modal .selected-item input[name="qty"] {width: 50px;}
 
 

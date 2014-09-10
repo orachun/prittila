@@ -73,6 +73,7 @@ class Product extends CI_Controller {
         $data['ajax'] = $ajax;
 
         if (!$ajax) {
+            $data['_js'] = array('product');
             $data['title'] = $data['name'];
             $data['contents'] = $this->load->view('product/product_detail', $data, TRUE);
             $data['custom_contents'] = true;

@@ -24,6 +24,15 @@ class Shopping_bag extends CI_Controller
                 'email' => $this->User_model->current('email'),
             );
         }
+        else
+        {
+            $data['receiver_info'] = array(
+                'name' => '',
+                'addr' => '',
+                'tel' => '',
+                'email' => '',
+            );
+        }
         
         $data['item_count'] = $this->_total_items();
         $query = $this->db->get_where('delivery_type', array('is_discarded'=>'N', 'name' => 'EMS'));
@@ -285,7 +294,7 @@ class Shopping_bag extends CI_Controller
         $promocode = $this->input->post('promocode');
         
         $user_info = array(
-            'fullname' => $receiverName,
+            'name' => $receiverName,
             'delivery_addr' => $receiverAddr,
             'addr' => $receiverAddr,
             'tel' => $receiverTel,

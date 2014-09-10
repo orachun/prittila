@@ -19,7 +19,7 @@
 		<a href="http://www.bot.or.th/Thai/Statistics/FinancialMarkets/ExchangeRate/_layouts/Application/ExchangeRate/ExchangeRate.aspx#" target="_blank">Exchange rate</a>
 		<div>
         Size: 
-        <label><input name="size" type="checkbox" value="R"/>Regular</label>
+        <label><input name="size" type="checkbox" value="Regular"/>Regular</label>
         <label><input name="size" type="checkbox" value="S"/>S</label>
         <label><input name="size" type="checkbox" value="M"/>M</label>
         <label><input name="size" type="checkbox" value="L"/>L</label>
@@ -28,9 +28,18 @@
 		</div>
 		<div>
         Color:
-        <?php foreach($colors as $cen => $cth):?>
-        <label><input name="color" type="checkbox" value="<?php echo $cen.':'.$cth;?>"/><?php echo $cth;?></label>
-        <?php endforeach;?>
+        <table>
+            <tr>
+                <td><select multiple size="10">
+                    <?php foreach($colors as $cen => $cth):?>
+                        <option href="#" class="color_picker"><?php echo $cth.' ('.$cen.')';?></option>
+                    <?php endforeach;?>
+                    </select>
+                </td>
+                <td><textarea id="color-text" name="color" cols="100" rows="12"></textarea></td>
+            </tr>
+        </table>
+        
 		</div>
 <!--        
         <div>Supplier</div>
@@ -50,6 +59,11 @@
 <script type="text/javascript">
 	$(function(){
 			
+        $('.color_picker').click(function(){
+            $('#color-text').val($('#color-text').val()+$(this).html()+"\n");
+            return false;
+        });    
+            
 		$('.add-product .submit-btn').click(function(){
 			$('.add-product').waiting();
 
@@ -58,24 +72,25 @@
 				size += $(element).val()+";";
 			});
 			var color = '';
-			$('.add-product input[name="color"]:checked').each(function(index, element){
-				color += $(element).val()+";";
-			});
-			$.post(base_url+'index.php/admin/add_product_submit', $('.add-product form').serialize()+"&color="+color+"&size="+size
+//			$('.add-product input[name="color"]:checked').each(function(index, element){
+//				color += $(element).val()+";";
+//			});
+			$.post(base_url+'index.php/admin/add_product_submit', $('.add-product form').serialize()
+                    //+"&color="+color
+                    +"&size="+size
                             //    +'&access_token='+fb_access_token
                         , function(data){
-				var urls = $('.add-product form textarea[name="imgs"]').val().split("\n");
-                                
-                                fb_post_photos(urls, data.fb_desc, function(){
+                                fb_post_photos(data.imgs, data.fb_desc, function(){
                                     $('.add-product').parent().load(base_url+'index.php/admin/add_product_form');
                                     $('body').append('<div>'+data+'</div>');
                                 }, function(){
                                     alert('Cannot upload photo to facebook');
+                                    $('.add-product').waiting('done');
                                 });
                                 
 			}, 'json');
 		});
 
-		initEditor('.add-product textarea[name="desc"]');
+		//initEditor('.add-product textarea[name="desc"]');
 	});
 </script>

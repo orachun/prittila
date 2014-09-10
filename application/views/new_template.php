@@ -91,7 +91,7 @@
         <div class="container">
             <?php if($custom_contents):?>
                 <div id="custom-content-panel" class="panel panel-primary">
-                <?php echo $contents;?>
+                <?php echo $custom_contents;?>
                 </div>
             <?php else:?>
                 <?php echo $slideshow; ?>

@@ -17,7 +17,7 @@ $(function(){
 
 function finalize_product_form()
 {
-    $('#product-detail-modal .buy-form #buy-btn').click(function() {
+    $('.product-detail-pane #buy-btn').click(function() {
         $('#product-detail-modal .modal-body').waiting();
         $.post(base_url+'index.php/shopping_bag/add',
                 $('.product-detail .buy-form').serialize(),

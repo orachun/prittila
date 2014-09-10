@@ -15,7 +15,7 @@ function ___config($key = NULL)
 		'grid_item_thumb_height' => 267,
 		'thumb_width' => 80,
 		'thumb_height' => 80,
-		'watermark' => base_url().'images/watermark_no_web.png'
+		'watermark' => base_url().'images/watermark.png'
     );
     if(empty($key))
     {

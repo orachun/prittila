@@ -154,8 +154,9 @@ function prepare_fb_desc($desc, $product_info, $link) {
     foreach ($product_info['color'] as $c) {
         if (empty($c))
             continue;
-        $c = explode(':', $c);
-        $color_list .= $c[1] . ', ';
+        //$c = explode(':', $c);
+        //$color_list .= $c[1] . ', ';
+        $color_list .= $c.',';
     }
     $color_list = substr($color_list, 0, strlen($color_list) - 2);
     $size_list = substr($size_list, 0, strlen($size_list) - 2);
@@ -179,7 +180,8 @@ function fb_default_desc() {
     return "{name}: {unit_price} บาท
 สี: {colors} ไซส์: {sizes}
 {desc}
-ดูเต็มๆที่ {link}";
+ดูเต็มๆที่ {link}
+#prittila";
 }
 
 function like_btn($url, $return = false) {
@@ -196,7 +198,9 @@ function like_btn($url, $return = false) {
 function fb_comments($url, $return = false) {
     //$url = 'http://www.google.com/?a='.rand(0, 10);
 
-    $comments = '<div class="fb-comments" data-href="' . $url . '" data-numposts="5" data-colorscheme="light"></div>';
+    $comments = '<div class="center-block" style="width:400px;">'
+            . '<div class="fb-comments" data-href="' . $url . '" data-width="400" data-numposts="5" data-colorscheme="light"></div>'
+            . '</div>';
     if ($return) {
         return $comments;
     } else {

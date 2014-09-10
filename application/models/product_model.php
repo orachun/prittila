@@ -37,7 +37,7 @@ class Product_model extends CI_Model
             $data['avail_colors'] = array();
             foreach($colors as $c)
             {
-                $data['avail_colors'][$c['value']] = $c['value2'];
+                $data['avail_colors'][$c['value']] = $c['value'];
             }
             
             $sizes = $this->_get_product_prop($pid, 'size');
@@ -160,7 +160,8 @@ class Product_model extends CI_Model
         foreach($p['color'] as $c)
         {
             if(empty($c)) continue;
-            $this->_add_product_prop($pid, 'color', explode(':',$c));
+//            $this->_add_product_prop($pid, 'color', explode(':',$c));
+            $this->_add_product_prop($pid, 'color', $c);
         }
         
 		//Save product images
@@ -174,18 +175,20 @@ class Product_model extends CI_Model
 		
 		$fb_desc = prepare_fb_desc($fb_desc, $p, base_url().'index.php/product/detail/'.$pid);
 		image_grid_item_prepare($img_urls[0], $img_dir.'thumb.jpg');
-//        foreach($img_urls as $i=>$u)
-//        {
-//            if(empty($u)) continue;
-//			$u = preg_replace('/\s+/', '', $u);
-//			$result_file = $img_dir.'imgs/'.$i.'.jpg';
-//			image_download($u, $result_file, $img_dir.'thumbs/'.$i.'.jpg');
-//			
+        $local_img_urls = array();
+        foreach($img_urls as $i=>$u)
+        {
+            if(empty($u)) continue;
+			$u = preg_replace('/\s+/', '', $u);
+			$result_file = $img_dir.'imgs/'.$i.'.jpg';
+			image_download($u, $result_file, $img_dir.'thumbs/'.$i.'.jpg');
+			$local_img_urls[] = str_replace(___config('base_path'), base_url(), $result_file);
 //			post_to_fb($result_file, $fb_desc);
-//        }
+        }
 	return array(
             'pid' => $pid,
             'fb_desc' => $fb_desc,
+            'imgs' => $local_img_urls,
             );	
     }
     

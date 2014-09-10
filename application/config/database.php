@@ -52,15 +52,15 @@ $active_record = TRUE;
 
 
 
-$db['default']['hostname'] = 'mysql.hostinger.in.th';
-$db['default']['username'] = 'u431920805_ptl';
-$db['default']['password'] = 'prittila';
-$db['default']['database'] = 'u431920805_ptl';
+//$db['default']['hostname'] = 'mysql.hostinger.in.th';
+//$db['default']['username'] = 'u431920805_ptl';
+//$db['default']['password'] = 'prittila';
+//$db['default']['database'] = 'u431920805_ptl';
 
-//$db['default']['hostname'] = 'localhost';
-//$db['default']['username'] = 'root';
-//$db['default']['password'] = '1234';
-//$db['default']['database'] = 'prittila';
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'root';
+$db['default']['password'] = '1234';
+$db['default']['database'] = 'prittila';
 
 
 $db['default']['dbdriver'] = 'mysql';
