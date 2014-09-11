@@ -10,7 +10,7 @@ class Page extends CI_Controller
         {
             show_404();
         }
-        $data['custom_contents'] = $this->load->view('page', $data, true);
+        $data['fullwidth_contents'] = $this->load->view('page', $data, true);
         
         //echo $data['contents'];
         $this->load->view('new_template', $data);

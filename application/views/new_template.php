@@ -15,6 +15,7 @@
         <script src="<?php echo base_url(); ?>template_asset/js/modals/shopping_bag.js"></script>
         <script src="<?php echo base_url(); ?>template_asset/js/modals/user.js"></script>
         <script src="<?php echo base_url(); ?>template_asset/js/modals/paymentinform.js"></script>
+        <script src="<?php echo base_url(); ?>template_asset/js/modals/contactus.js"></script>
         <?php include config_item('base_path').'/application/views/template_includes/template_header.php';?>
         
         
@@ -30,6 +31,11 @@
         <script src="<?php echo base_url(); ?>template_asset/js/utils.js"></script>
         <script src="<?php echo base_url(); ?>libs/jquery.form.js"></script>
         <script src="<?php echo base_url(); ?>template_asset/js/sha256.js"></script>
+        
+        
+        <script src="<?php echo base_url(); ?>libs/boostrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+        <?php //echo link_tag(base_url('libs/boostrap-datetimepicker/bootstrap-datetimepicker.min.css')); ?>
+        <link src="http://tarruda.github.io/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css" type="text/css"/>
         
         <!-- Add fancyBox -->
         <link rel="stylesheet" href="<?php echo base_url();?>libs/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
@@ -89,21 +95,32 @@
         
 
         <div class="container">
-            <?php if($custom_contents):?>
-                <div id="custom-content-panel" class="panel panel-primary">
-                <?php echo $custom_contents;?>
-                </div>
-            <?php else:?>
-                <?php echo $slideshow; ?>
+            <?php if(!empty($slideshow)) echo $slideshow; ?>
             <div class="row bottom-margin">&nbsp;</div>
-            <div class="row bottom-margin">
-                <div class="col-md-9 col-sm-12">
-                    <div class="panel panel-primary">
-                        <?php echo $contents; ?>
+            
+            <?php if(!empty($fullwidth_contents)):?>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <?php echo $fullwidth_contents; ?>
                     </div>
                 </div>
+            
+            <?php endif;?>
+            
+            
+            <div class="row bottom-margin">
+                <?php if(!empty($contents)):?>
+                <div class="col-md-9 col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                        <?php echo $contents; ?>
+                        </div>
+                    </div>
+                </div>
+                <?php endif;?>
                 
                 <!--Best Sellers-->
+                <?php if(!empty($best_seller)):?>
                 <div class="col-md-3 col-sm-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -123,9 +140,11 @@
                         </div>
                     </div>
                 </div>
+                <?php endif;?>
             </div>
             
             <!--Other products-->
+            <?php if(!empty($most_viewed)):?>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="panel panel-primary">
@@ -145,7 +164,7 @@
                     </div>
                 </div>
             </div>
-        <?php endif;?>
+            <?php endif;?>
         </div>
         <div id="footer">
 			<?php if (!empty($footer)) echo $footer; ?>
@@ -193,9 +212,16 @@
 
 
 
+        <script src="<?php echo base_url(); ?>libs/jquery.validate/jquery.validate.js"></script>
+        <script src="<?php echo base_url(); ?>libs/jquery.validate/localization/messages_th.min.js"></script>
         <script src="<?php echo base_url(); ?>template_asset/js/bootstrap.min.js"></script>
         <script>
+            $(function(){
             $('*[data-toggle="tooltip"]').tooltip();
+            $('.datetimepicker').datetimepicker({
+                language: 'en'
+              });
+          });
         </script>
     </body>
 </html>

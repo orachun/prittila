@@ -9,34 +9,36 @@
             <div class="modal-body">
                 <!-- modal body -->
                 <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">ชื่อ</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="inputEmail3" placeholder="ชื่อ">
+                    <div id="guest-section">
+                        <div class="form-group">
+                            <label for="inputname" class="col-sm-3 control-label">ชื่อ</label>
+                            <div class="col-sm-9">
+                                <input name="name" type="text" class="form-control" id="name" placeholder="ชื่อ" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-3 control-label">อีเมล์</label>
-                        <div class="col-sm-9">
-                            <input type="email" class="form-control" id="inputPassword3" placeholder="อีเมล์">
+                        <div class="form-group">
+                            <label for="inputemail" class="col-sm-3 control-label">อีเมล์</label>
+                            <div class="col-sm-9">
+                                <input name="email" type="email" class="form-control" id="email" placeholder="อีเมล์" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-3 control-label">โทรศัพท์</label>
-                        <div class="col-sm-9">
-                            <input type="tel" class="form-control" id="inputPassword3" placeholder="โทรศัพท์">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">ข้อความ</label>
-                        <div class="col-sm-9">
-                            <textarea type="text" class="form-control" id="inputEmail3" placeholder="ข้อความ"></textarea>
+                        <div class="form-group">
+                            <label for="inputtel" class="col-sm-3 control-label">โทรศัพท์</label>
+                            <div class="col-sm-9">
+                                <input name="tel" type="tel" class="form-control" id="tel" placeholder="โทรศัพท์" >
+                            </div>
                         </div>
                     </div>
 
+                        <div class="form-group">
+                            <label for="inputmsg" class="col-sm-3 control-label">ข้อความ</label>
+                            <div class="col-sm-9">
+                                <textarea name="msg" type="text" class="form-control" id="msg" placeholder="ข้อความ" required></textarea>
+                            </div>
+                        </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button type="submit" class="btn btn-primary">ส่งข้อความ</button>
+                            <button id="submit-btn" type="submit" class="btn btn-primary">ส่งข้อความ</button>
                         </div>
                     </div>
                 </form>

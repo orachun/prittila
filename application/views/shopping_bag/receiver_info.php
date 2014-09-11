@@ -1,3 +1,5 @@
+<!-- unused
+
 <style>
     .order-review .receiver-info .form-item
     {
@@ -20,15 +22,17 @@
     <form class="receiver-info-form">
         <div class="section-header">รายละเอียดผู้รับสินค้า</div>
         <div class="form-item form-item-receiver-name">
-            <label class="label">ชื้อผู้รับ</label> <input name="receiver-name" type="text" value="<?php echo $receiver_info['name']; ?>"/>
+            <label class="label">ชื้อผู้รับ</label> 
+            <input name="receiver-name" type="text" value="<?php echo $receiver_info['name']; ?>" required/>
         </div>
         <div class="form-item form-item-receiver-addr">
-            <label class="label">ที่อยู่ รหัสไปรษณีย์ ผู้รับ</label> <textarea name="receiver-addr"><?php echo $receiver_info['addr']; ?></textarea>
+            <label class="label">ที่อยู่ รหัสไปรษณีย์ ผู้รับ</label> 
+            <textarea name="receiver-addr" required><?php echo $receiver_info['addr']; ?></textarea>
         </div>
         <div class="form-item form-item-receiver-email">
             <label class="label">อีเมล์</label>
             <?php if ($is_logged_in === FALSE): ?>
-                <input name="receiver-email" type="text" value="<?php echo $receiver_info['email']; ?>"/>
+                <input name="receiver-email" type="email" value="<?php echo $receiver_info['email']; ?>" required/>
             <?php else: ?>
                 <input name="receiver-email" type="hidden"  value="<?php echo $receiver_info['email']; ?>"/>
                 <input type="text" disabled="disabled"  value="<?php echo $receiver_info['email']; ?>"/>
@@ -37,7 +41,7 @@
         <div class="form-item form-item-receiver-tel">
             <label class="label">โทร.</label>
             <?php if ($is_logged_in === FALSE): ?>
-                <input name="receiver-tel" type="text"  value="<?php echo $receiver_info['tel']; ?>"/>
+                <input name="receiver-tel" type="tel"  value="<?php echo $receiver_info['tel']; ?>" required/>
             <?php else: ?>
                 <input name="receiver-tel" type="hidden" value="<?php echo $receiver_info['tel']; ?>"/>
                 <input type="text" disabled="disabled"  value="<?php echo $receiver_info['tel']; ?>"/>

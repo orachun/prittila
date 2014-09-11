@@ -1,4 +1,4 @@
-<div class="panel-body main-product-panel">
+<div class="main-product-panel">
     <div class="row bottom-margin">
         <div class="col-sm-6">
             <form id="product-grid-args-form">

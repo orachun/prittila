@@ -7,11 +7,17 @@ class Others extends CI_Controller
         parent::__construct();
     }
     
+    public function test()
+    {
+        $this->load->model('User_model');
+        echo json_encode($this->User_model->current());
+    }
+    
     public function contact_us_form()
     {
 		$this->load->model('User_model');
         $data['is_logged_in'] = $this->User_model->is_logged_in();
-        $this->load->view('contact_us', $data);
+        $this->load->view('contactus', $data);
     }
     
     public function contact_us_submit()

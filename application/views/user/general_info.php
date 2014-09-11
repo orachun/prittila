@@ -12,7 +12,7 @@
             <div class="col-sm-9">
                 <input name="fullname" type="text" class="form-control" 
                        id="input-fullname" placeholder="ชื่อ-นามสกุล"
-                       value="<?php echo $fullname;?>">
+                       value="<?php echo $fullname;?>" required>
             </div>
         </div>
 
@@ -21,12 +21,12 @@
             <div class="col-sm-9">
 
                 <textarea name="addr" type="text" class="form-control" 
-                          id="input-addr" placeholder="ที่อยู่ในการจัดส่งสินค้า"><?php echo $addr;?></textarea>
+                          id="input-addr" placeholder="ที่อยู่ในการจัดส่งสินค้า" required><?php echo $addr;?></textarea>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="input-tel" class="col-sm-3 control-label">โทรศัพท์</label>
+            <label for="input-tel" class="col-sm-3 control-label" required>โทรศัพท์</label>
             <div class="col-sm-9">
                 <input name="tel" type="text" class="form-control" 
                        id="input-tel" placeholder="โทรศัพท์"
@@ -46,19 +46,19 @@
             <div class="form-group">
                 <label for="input-old_pass" class="col-sm-3 control-label">รหัสผ่านเดิม</label>
                 <div class="col-sm-9">
-                    <input name="old_pass" type="password" class="form-control" id="input-pass" placeholder="รหัสผ่านเดิม">
+                    <input name="old_pass" type="password" class="form-control" id="input-pass" placeholder="รหัสผ่านเดิม" required minlength="6">
                 </div>
             </div>
             <div class="form-group">
                 <label for="input-new_pass" class="col-sm-3 control-label">รหัสผ่านใหม่</label>
                 <div class="col-sm-9">
-                    <input name="new_pass" type="password" class="form-control" id="input-pass" placeholder="รหัสผ่านใหม่">
+                    <input id="new-pass" name="new_pass" type="password" class="form-control" id="input-new-pass" placeholder="รหัสผ่านใหม่" required minlength="6">
                 </div>
             </div>
             <div class="form-group">
                 <label for="input-new_pass_confirm" class="col-sm-3 control-label">ยืนยันรหัสผ่านใหม่</label>
                 <div class="col-sm-9">
-                    <input name="new_pass_confirm" type="password" class="form-control" id="input-pass" placeholder="ยืนยันรหัสผ่านใหม่">
+                    <input name="new_pass_confirm" type="password" class="form-control" id="input-new-pass-confirm" placeholder="ยืนยันรหัสผ่านใหม่" required minlength="6" equalto=".change-password-form #new-pass">
                 </div>
             </div>
             <div class="form-group">
@@ -74,12 +74,8 @@
 
         $('.general-info .user-info-form .submit-btn').click(function(e) {
             e.preventDefault();
-//            if (form_valid('.general-info .user-info-form', {
-//                fullname: {required: true},
-//                addr: {required: true},
-//                tel: {required: true, digits: true, minlength: 9}
-//            }))
-            if(true)
+            var valid = $(this).parents('form').validate().form();
+            if(valid)
             {
                 $('.general-info').waiting({fixed: true});
                 $.post(base_url + 'index.php/user/edit_info',
@@ -107,12 +103,8 @@
 
         $('.general-info .change-password-form .submit-btn').click(function(e) {
             e.preventDefault();
-//            if (form_valid('.general-info .change-password-form', {
-//                old_pass: {required: true},
-//                new_pass: {required: true, minlength: 4},
-//                new_pass_confirm: {required: true, equalTo: '.general-info .change-password-form input[name="new_pass"]'}
-//            }))
-            if(true)
+            var valid = $(this).parents('form').validate().form();
+            if(valid)
             {
                 $('.general-info').waiting({fixed: true});
                 var pass_info = form_data_to_JSON('.general-info .change-password-form');

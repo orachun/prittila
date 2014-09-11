@@ -104,6 +104,7 @@ class Shopping_bag extends CI_Controller
         $response = array(
             'body' => $this->load->view('shopping_bag/summary', array(), true),
             'total' => number_format($this->cart->total(),2),
+            'count' => count($this->cart->contents()),
         );
 		echo json_encode($response);
 	}
@@ -337,15 +338,19 @@ class Shopping_bag extends CI_Controller
         
         $this->cart->destroy();
         $invoice_url = base_url('index.php/order/display/'.$order_id);
-		$order_detail = file_get_contents($invoice_url);
-		$header = 'เรียน คุณ '.$receiverName.'<br/><br/>'
-				.'ขอบคุณที่สั่งซื้อสิ้นค้าจาก Prittila คุณสามารถดูรายละเอียดได้จากด้านล่างค่ะ <br/><br/>';
-		$footer = '<br/><br/>ขอบคุณค่ะ<br/>Prittila<br/>';
-		
+        
+        
         //Omit sending email until testing online server
+//		$order_detail = file_get_contents($invoice_url);
+//		$header = 'เรียน คุณ '.$receiverName.'<br/><br/>'
+//				.'ขอบคุณที่สั่งซื้อสิ้นค้าจาก Prittila คุณสามารถดูรายละเอียดได้จากด้านล่างค่ะ <br/><br/>';
+//		$footer = '<br/><br/>ขอบคุณค่ะ<br/>Prittila<br/>';
         //$this->Others_model->email($receiverEmail, 'ข้อมูลการสั่งซื้อสินค้า', $header.$order_detail.$footer);
 		
-		echo $invoice_url;
+		echo json_encode(array(
+            'success' => 'true',
+            'invoice_url' => $invoice_url,
+        ));
     }
     
     

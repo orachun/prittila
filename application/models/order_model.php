@@ -72,7 +72,7 @@ class Order_model extends CI_Model
             'store_order_id' => $store_order_id,
             'customer_coupon_id' => $customer_coupon_id,
             'net_total' => $this->cal_net_total($user_info, $cart_info, $deliver_info, $coupon_info),
-            'receiver_name' => $user_info['fullname'],
+            'receiver_name' => $user_info['name'],
             'delivery_addr' => $user_info['delivery_addr'],
             'ordered_datetime' => date('Y-m-d H:i:s'),
             'delivery_type' => $deliver_info['delivery_type_id'],

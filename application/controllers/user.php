@@ -7,19 +7,48 @@ class User extends CI_Controller
 		parent::__construct();
         $this->load->model('User_model');
 	}	
+    
+    public function get()
+    {
+        if(!$this->User_model->is_logged_in())
+        {
+            echo json_encode(array(
+                'success' => 'false',
+                'error' => 'ยังไม่ได้ลงชื่อเข้าสู่ระบบ',
+            ));
+            return;
+        }
+        
+        $user_info = $this->User_model->get($this->input->cookie('login_cookie'));
+        unset($user_info['pass']);
+        echo json_encode(array(
+            'success' => 'true',
+            'user_info' => $user_info
+        ));
+    }
 	
 	public function login()
 	{
 		$email = $this->input->post("email");
 		$pass = $this->input->post("pass");
 		$remember = ($this->input->post("remember")=='on');
-		if($this->User_model->login($email, $pass, $remember) === TRUE)
+        $result = $this->User_model->login($email, $pass, $remember);
+		if($result !== FALSE)
         {
-            echo 'ok';
+            $user_info = $this->User_model->get($result);
+            unset($user_info['pass']);
+            echo json_encode(array(
+                'success' => 'true',
+                'user_info' => $user_info
+            ));
         }
         else
         {
-            echo 'อีเมล์หรือรหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบอีเมล์และรหัสผ่านค่ะ';
+            
+            echo json_encode(array(
+                'success' => 'false',
+                'error' => 'อีเมล์หรือรหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบอีเมล์และรหัสผ่านค่ะ'
+            ));
         }
 	}
 
@@ -43,7 +72,10 @@ class User extends CI_Controller
         }
         else
         {
-            echo 'อีเมล์นี้ถูกผู้อื่นใช้แล้วค่ะ';
+            echo json_encode(array(
+                'success' => 'false',
+                'error' =>  'อีเมล์นี้ถูกผู้อื่นใช้แล้วค่ะ'
+            ));
         }
 	}
 

@@ -21,11 +21,11 @@
     <h1>ติดต่อเรา</h1>
     <form class="contact-form">
         <?php if($is_logged_in == FALSE):?>
-        <div class="form-item form-item-name"><div><input name="name" type="text" placeholder="ชื่อ"/></div></div>
-        <div class="form-item form-item-email"><div><input name="email" type="text" placeholder="อีเมล์"/></div></div>
+        <div class="form-item form-item-name"><div><input name="name" type="text" placeholder="ชื่อ" required/></div></div>
+        <div class="form-item form-item-email"><div><input name="email" type="text" placeholder="อีเมล์" required/></div></div>
         <div class="form-item form-item-tel"><div><input name="tel" type="text" placeholder="หมายเลขโทรศัพท์"/></div></div>
         <?php endif;?>
-        <div class="form-item form-item-msg"><div><textarea name="msg" placeholder="ข้อความ"></textarea></div></div>
+        <div class="form-item form-item-msg"><div><textarea name="msg" placeholder="ข้อความ" required></textarea></div></div>
         <div class="form-item form-item-send-btn"><span class="send-btn ui-corner-all button">ส่งข้อความ</span></div>
     </form>
 

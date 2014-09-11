@@ -8,9 +8,10 @@ class User_model extends CI_Model
 		$this->load->helper('cookie');
     }
     
+    
     public function current($field = NULL)
     {
-		$uid = get_cookie('login_cookie');
+		$uid = $this->input->cookie('login_cookie');
 		if(!empty($uid))
 		{
 			$query = $this->db->get_where('customer', array('customer_id' => $uid));
@@ -51,7 +52,7 @@ class User_model extends CI_Model
 			}
 			$this->input->set_cookie($cookie);
 			
-            return TRUE;
+            return $user_info->customer_id;
         }
 		else
         {

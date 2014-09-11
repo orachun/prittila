@@ -48,6 +48,7 @@
                     $('.account-info').parent().waiting('done');
                     $('#account-modal .modal-header .close').click();
                     notify('success', 'ออกจากระบบ', 'ออกจากระบบเรียบร้อยค่ะ');
+                    user_info = null;
                 }
             );
         });

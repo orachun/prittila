@@ -8,9 +8,10 @@
             </div>
             <div class="modal-body">
                 <!-- modal body -->
-                <button id="checkout-order-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#checkout-order-modal">ส่งคำสั่งซื้อ</button>
-                <span class="label label-default">รวม <span class="total-price">xxx.xx</span> บาท</span>
-                <div class="margin-bottom">&nbsp;</div>
+                <div class="upper bottom-margin">
+                    <button id="checkout-order-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#checkout-order-modal">ส่งคำสั่งซื้อ</button>
+                    <span class="label label-default">รวม <span class="total-price">xxx.xx</span> บาท</span>
+                </div>
 
                 <div class="ordered-item-list">
                     

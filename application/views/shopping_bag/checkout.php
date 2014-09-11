@@ -13,14 +13,14 @@
             <div class="col-sm-9">
                 <input name="receiver-name" type="text" class="form-control" 
                        id="input-receiver-name" placeholder="ชื่อ-นามสกุล"
-                       value="<?php echo $receiver_info['name'];?>">
+                       value="<?php echo $receiver_info['name'];?>" required>
             </div>
         </div>
         <div class="form-group">
             <label for="input-receiver-addr" class="col-sm-3 control-label">ที่อยู่ในการจัดส่งสินค้า</label>
             <div class="col-sm-9">
                 <textarea name="receiver-addr" type="text" class="form-control" 
-                          id="input-receiver-addr" placeholder="ที่อยู่ในการจัดส่งสินค้า"><?php echo $receiver_info['addr'];?></textarea>
+                          id="input-receiver-addr" placeholder="ที่อยู่ในการจัดส่งสินค้า" required><?php echo $receiver_info['addr'];?></textarea>
             </div>
         </div>
         
@@ -29,7 +29,7 @@
             <label for="input-receiver-tel" class="col-sm-3 control-label">โทรศัพท์</label>
             <div class="col-sm-9">
                     <input name="receiver-tel" type="tel" class="form-control" 
-                           id="input-receiver-tel" placeholder="โทรศัพท์">
+                           id="input-receiver-tel" placeholder="โทรศัพท์" required>
             </div>
         </div>
         <div class="form-group">
@@ -37,7 +37,7 @@
             <div class="col-sm-9">
                 <input name="receiver-email" type="email" class="form-control" 
                        id="input-receiver-email" placeholder="อีเมล์"
-                       value="<?php echo $receiver_info['email'];?>">
+                       value="<?php echo $receiver_info['email'];?>" required>
             </div>
         </div>
         <?php endif;?>
@@ -50,12 +50,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="input-addr" class="col-sm-3 control-label">&nbsp;</label>
+            <label for="input-addr" class="col-sm-3 control-label">ยอมรับ <a href="#">เงื่อนไขการสั่งซื้อสินค้า</a></label>
             <div class="col-sm-9">
-                <label>
-                    <input type="checkbox" name="accept_condition" class="fomrm-control" id="input-accept_condition"/>
-                    ยอมรับเงื่อนไขการสั่งซื้อสินค้า
-                </label>
+                <input type="checkbox" name="accept_condition" class="fomrm-control" id="input-accept_condition" /> 
             </div>
         </div>
         <div class="form-group">
@@ -69,22 +66,29 @@
 <script type="text/javascript">
     $('#checkout-form-container #checkout-form .checkout-btn').click(function (e){
         e.preventDefault();
+        
+        var validator = $(this).parents('form').validate();
+        $('#checkout-form #input-accept_condition').rules('add', {
+            required:true,
+            messages:{
+                required:'กรุณาอ่านและยอมรับเงื่อนไขการสั่งซื้อด้วยค่ะ'
+            }
+        });
+        var valid = validator.form();
+            if(valid)
+            {
         var form_data = form_data_to_JSON('#checkout-form-container #checkout-form');
-        if(form_data['accept_condition'] != 'on')
-        {
-            notify('error', 'ส่งคำสั่งซื้อ', 'ต้องยอมรับเงื่อนไขการสั่งซื้อสินค้าด้วยจ้า');
-        }
-        else
-        {
             $('#checkout-form-container').waiting();
             $.post(base_url+'index.php/shopping_bag/order_submit', form_data, function(response){
-                $('#checkout-form-container').load(response, function(result){
-                    update_order_count(function(){
-                        $('#checkout-form-container').waiting('done');
-                        notify('success', 'ส่งคำสั่งซื้อ', 'บันทึกคำสั่งซื้อเรียบร้อยจ้า');
+                if(response.success == 'true')
+                {
+                    $('#checkout-form-container').load(response.invoice_url, function(result){
+                        update_order_count(function(){
+                            notify('success', 'ส่งคำสั่งซื้อ', 'บันทึกคำสั่งซื้อเรียบร้อยจ้า');
+                        });
                     });
-                });
-            });
+                }
+            }, 'json');
         }
     });
 </script>
