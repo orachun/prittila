@@ -169,6 +169,9 @@ function prepare_fb_desc($desc, $product_info, $link) {
     $desc = str_replace("{colors}", $color_list, $desc);
     $desc = str_replace("{sizes}", $size_list, $desc);
 
+    $desc .= ' #prittila_'.str_replace(" ", "_", $product_info['cat_name']);
+    $desc .= ' #prittila';
+    
     return $desc;
 }
 
@@ -181,7 +184,7 @@ function fb_default_desc() {
 สี: {colors} ไซส์: {sizes}
 {desc}
 ดูเต็มๆที่ {link}
-#prittila";
+";
 }
 
 function like_btn($url, $return = false) {

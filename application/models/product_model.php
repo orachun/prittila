@@ -103,9 +103,17 @@ class Product_model extends CI_Model
         return $query->row()->count;
     }
     
-    public function get_cat()
+    public function get_cat($catid = NULL)
     {
-        return $this->db->get('category')->result();
+        if(empty($catid))
+        {
+            return $this->db->get('category')->result();
+        }
+        else
+        {
+            $res = $this->db->get_where('category', array('product_cat_id'=>$catid))->result();
+            return $res[0]->name;
+        }
     }
     
     public function add_cat($name)
@@ -131,8 +139,10 @@ class Product_model extends CI_Model
     }
     public function add_product($p, $fb_desc)
     {
-		$this->load->helper('image');
-		$this->load->helper('facebook');
+        $this->load->helper('image');
+        $this->load->helper('facebook');
+        $p['cat_name'] = get_cat($p['cat_id']);
+                
 		//Save product data
         $this->db->insert('product', array(
             'name' => $p['name'],
