@@ -2,7 +2,6 @@
     .page-container
     {
         background-color: white;
-        padding: 20px;
         margin: 20px;
     }
     
@@ -28,6 +27,6 @@
         <?php echo $page['content'];?>
     </div>
     <div class="page-footer">
-        แก้ไขล่าสุดเมื่อ <?php echo thai_datetime($page['edited_datetime']);?>
+        <!-- แก้ไขล่าสุดเมื่อ <?php echo thai_datetime($page['edited_datetime']);?> -->
     </div>
 </div>

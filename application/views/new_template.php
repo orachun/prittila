@@ -80,9 +80,9 @@
                         <li class="dropdown"  data-toggle="tooltip" data-placement="bottom" title="วิธีการสั่งซื้อและชำระเงิน">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-question-sign"></span> Buy Info <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo base_url('index.php/page/content/conditions');?>">ข้อตกลงและเงื่อนไขการสั่งซื้อ</a></li>
-                                <li><a href="#">วิธีการสั่งซื้อและชำระเงิน</a></li>
-                                <li><a href="#">รายละเอียดการชำระเงิน</a></li>
+                                <li><a href="<?php echo base_url('index.php/page/content/conditions');?>" target="_blank">ข้อตกลงและเงื่อนไขการสั่งซื้อ</a></li>
+                                <li><a href="<?php echo base_url('index.php/page/content/order_info');?>" target="_blank">วิธีการสั่งซื้อและชำระเงิน</a></li>
+                                <li><a href="<?php echo base_url('index.php/page/content/payment_method');?>" target="_blank">รายละเอียดการชำระเงิน</a></li>
                             </ul>
                         </li>
                         <li data-toggle="tooltip" data-placement="bottom" title="แจ้งชำระเงิน"><a href="#" data-toggle="modal" data-target="#payment-inform-modal"><span class="glyphicon glyphicon-usd"></span> Payment</a></li>
@@ -218,9 +218,9 @@
         <script>
             $(function(){
             $('*[data-toggle="tooltip"]').tooltip();
-            $('.datetimepicker').datetimepicker({
-                language: 'en'
-              });
+//            $('.datetimepicker').datetimepicker({
+//                language: 'en'
+//              });
           });
         </script>
     </body>
