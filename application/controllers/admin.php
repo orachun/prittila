@@ -276,4 +276,11 @@ class Admin extends CI_Controller
 		$this->db->query('update product set status="'.$status.'" where product_id="'.$pid.'"');
 	}
 
+    
+    public function promocodes()
+    {
+        //TODO: implement this
+/        $data['products'] = $this->Product_model->get_admin_products();
+//		$this->load->view('admin/products', $data);
+    }
 }

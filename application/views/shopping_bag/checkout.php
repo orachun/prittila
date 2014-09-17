@@ -46,7 +46,9 @@
             <label for="input-promocode" class="col-sm-3 control-label">รหัสโปรโมชัน</label>
             <div class="col-sm-9">
                 <input name="promocode" type="text" class="form-control" 
-                       id="input-promocode" placeholder="รหัสโปรโมชัน">
+                       id="input-promocode" placeholder="รหัสโปรโมชัน"><br/>
+                <span class="btn btn-primary" id="check-promocode-btn">ตรวจสอบ</span>
+                <span id="check-promocode-result"></span>
             </div>
         </div>
         <div class="form-group">
@@ -75,12 +77,12 @@
             }
         });
         var valid = validator.form();
-            if(valid)
-            {
-        var form_data = form_data_to_JSON('#checkout-form-container #checkout-form');
+        if(valid)
+        {
+            var form_data = form_data_to_JSON('#checkout-form-container #checkout-form');
             $('#checkout-form-container').waiting();
             $.post(base_url+'index.php/shopping_bag/order_submit', form_data, function(response){
-                if(response.success == 'true')
+                if(response.success == true)
                 {
                     $('#checkout-form-container').load(response.invoice_url, function(result){
                         update_order_count(function(){
@@ -88,7 +90,41 @@
                         });
                     });
                 }
+                else
+                {
+                    notify('error', 'ส่งคำสั่งซื้อ', response.error);
+                    $('#checkout-form-container').waiting('done');
+                }
             }, 'json');
         }
+    });
+    
+    $('#checkout-form-container #checkout-form #check-promocode-btn').click(function (e){
+        $('#checkout-form-container').waiting();
+        $.get(base_url+'index.php/shopping_bag/check_promocode', {
+            promocode: $('#checkout-form-container #checkout-form #input-promocode').val()
+        }, function(response){
+            if(response)
+            {
+                var info = '';
+                if(response.promocode_desc)
+                {
+                    info = '<span class="glyphicon glyphicon-info-sign"  data-toggle="tooltip" data-placement="bottom" title="';
+                    info += response.promocode_desc;
+                    info += '"></span>';
+                }
+                
+                if(response.success == true)
+                {
+                    $('#checkout-form-container #check-promocode-result').html('ส่วนลดทั้งหมด '+response.discount+' บาท ' +info);
+                }
+                else
+                {
+                    $('#checkout-form-container #check-promocode-result').html(response.error+' ' +info);
+                }
+                $('#checkout-form-container *[data-toggle="tooltip"]').tooltip();
+                $('#checkout-form-container').waiting('done');
+            }
+        }, 'json');
     });
 </script>

@@ -79,7 +79,7 @@ class Promocode_model extends CI_Model
         {
             return array(
                 'success' => FALSE,
-                'error' => 'รหัสไม่ถูกต้อง'
+                'error' => 'รหัสโปรโมชันไม่ถูกต้อง'
             );
         }
         
@@ -88,28 +88,28 @@ class Promocode_model extends CI_Model
         {
             return array(
                 'success' => FALSE,
-                'error' => 'รหัสไม่ถูกต้อง'
+                'error' => 'รหัสโปรโมชันไม่ถูกต้อง'
             );
         }
         if(!empty($pcode->expire_datetime) && date_create($pcode->expire_datetime) < new DateTime())
         {
             return array(
                 'success' => FALSE,
-                'error' => 'รหัสหมดอายุ'
+                'error' => 'รหัสโปรโมชันหมดอายุ'
             );
         }
         if(!empty($pcode->used_datetime))
         {
             return array(
                 'success' => FALSE,
-                'error' => 'รหัสนี้ถูกใช้แล้ว',
+                'error' => 'รหัสโปรโมชันนี้ถูกใช้แล้ว',
             );
         }
         if($pcode->amount_threshold > $buy_amount)
         {
             return array(
                 'success' => FALSE,
-                'error' => 'ต้องมียอดขั้นต่ำ '.$pcode->amount_threshold.' บาท',
+                'error' => 'ต้องมียอดขั้นต่ำ '.$pcode->amount_threshold.' บาทจึงจะใช้รหัสโปรโมชันได้',
             );
         }
         
@@ -130,16 +130,23 @@ class Promocode_model extends CI_Model
         );
     }
     
-    public function use_code($code, $cus_id, $buy_amount)
+    public function get_code_from_id($code_id)
     {
-        $res = check_code($code, $cus_id, $buy_amount);
-        if($res['success'] === TRUE)
+        $result = $this->db->get_where('promocode', array('id' => $code_id))->result();
+        if(count($result) > 0)
         {
-            $this->db->where('promocode', $res['pcode']->id);
-            $this->db->update('promocode', array('used_datetime' => date('Y-m-d H:i:s'))); 
+            return $result[0];
         }
-        unset($res['pcode']);
-        return $res;
+        else
+        {
+            return FALSE;
+        }
+    }
+    
+    public function use_code($code_id)
+    {
+        $this->db->where('promocode', $code_id);
+        $this->db->update('promocode', array('used_datetime' => date('Y-m-d H:i:s'))); 
     }
     
     

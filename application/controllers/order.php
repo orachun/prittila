@@ -28,6 +28,9 @@ class Order extends CI_Controller
         
         $data['order_items'] = $order_items;
         $data['total_before_discount'] = $total_before_discount;
+        
+        //TODO: calculate discount from promocode if used
+        
         $data['item_count'] = $total_items;
         $data += $this->db->get_where('customer_order', array('order_id'=>$order_id))->row_array();
         

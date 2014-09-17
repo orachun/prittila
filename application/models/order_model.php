@@ -2,26 +2,19 @@
 
 class Order_model extends CI_Model
 {
-    function cal_net_total($user_info, $cart_info, $deliver_info, $coupon_info)
+    function cal_net_total($cart_info, $deliver_info, $pcode_chk_result = NULL)
     {
         $sub_total = $cart_info['sub_total'];
         $total_items = $cart_info['total_items'];
         $total_after_discount  = $sub_total;
-        if($coupon_info['coupon_id'] != -1 
-                && $this->is_coupon_usable_by_user($coupon_info['coupon_id'], $user_info['customer_id']) 
-                && $sub_total >= $coupon_info['amount_threshold'])
+        
+        
+        if($pcode_chk_result != NULL && $pcode_chk_result['success'] == TRUE)
         {
-            $discount = 0;
-            if($coupon_info['discount_type'] == 'F')
-            {
-                $discount = $coupon_info['amount'];
-            }
-            else
-            {
-                $discount = $sub_total * $coupon_info['amount'];
-            }
-            $total_after_discount = $sub_total - $discount;
+            $total_after_discount = $sub_total - $pcode_chk_result['discount'];
         }
+        
+        
         $deliver_cost = 0;
         if($total_items < $deliver_info['free_threshold'])
         {
@@ -39,39 +32,18 @@ class Order_model extends CI_Model
         return $query->row()->remain > 0;
     }
     
-    function add_order($user_info, $cart_info, $store_order_id, $deliver_id, $customer_coupon_id)
+    function add_order($user_info, $cart_info, $store_order_id, $deliver_id, $pcode_chk_result = NULL)
     {
         $deliver_info = $this->db->get_where('delivery_type', 
 				array('delivery_type_id' => $deliver_id))
 				->row_array();
-        if($customer_coupon_id == -1)
-        {
-            $coupon_info['coupon_id'] = -1;
-        }
-        else
-        {
-            $query = $this->db->get_where('_customer_coupon_info', 
-                    array(
-                        'customer_coupon_id' => $customer_coupon_id,
-                        'customer_id' => $user_info['customer_id'],
-                        )
-                    );
-            if($query->num_rows() == 0)
-            {
-                $coupon_info['coupon_id'] = -1;
-                $customer_coupon_id = -1;
-            }
-            else
-            {
-                $coupon_info = $query->row_array();
-            }
-        }
+        
         
         $this->db->insert('customer_order', array(
             'customer_id' => $user_info['customer_id'], 
             'store_order_id' => $store_order_id,
-            'customer_coupon_id' => $customer_coupon_id,
-            'net_total' => $this->cal_net_total($user_info, $cart_info, $deliver_info, $coupon_info),
+            'customer_coupon_id' => $pcode_chk_result == NULL? -1 : $pcode_chk_result['pcode']->id,
+            'net_total' => $this->cal_net_total($cart_info, $deliver_info, $pcode_chk_result),
             'receiver_name' => $user_info['name'],
             'delivery_addr' => $user_info['delivery_addr'],
             'ordered_datetime' => date('Y-m-d H:i:s'),

@@ -2,18 +2,16 @@
     <table class="admin-table table table-striped">
         <thead>
 		<th>ID</th>
-		<th>Desc</th>
-		<th>Type</th>
-		<th>Value</th>
-		<th>Customer</th>
-		<th>Amount Threshold</th>
-		<th>Valid Days</th>
-        <th>Used</th>
-        <th>Actions</th>
+		<th>Name</th>
+		<th>Link</th>
+		<th>Price/Cost</th>
+		<th>Avail. Color</th>
+		<th>Avail. Size</th>
+		<th>Status</th>
+		<th>Actions</th>
         </thead>
         <tbody>
 			<?php
-            //TODO: Implement this
 			foreach ($products as $i => $p) :
 				$link = base_url() . 'index.php/product/detail/' . $p['product_id'];
 			?>

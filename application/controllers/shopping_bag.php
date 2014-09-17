@@ -281,6 +281,28 @@ class Shopping_bag extends CI_Controller
         }
     }
     
+    public function check_promocode()
+    {
+        $this->load->model('Promocode_model');
+        $code = $this->input->get('promocode');
+        if($this->User_model->is_logged_in())
+        {
+            $cus_id = $this->User_model->current('customer_id');
+        }
+        else
+        {
+            $cus_id = NULL;
+        }
+        $buy_amount = $this->cart->total();
+        $result = $this->Promocode_model->check_code($code, $cus_id, $buy_amount);
+        if(!empty($result['pcode']->desc))
+        {
+            $result['promocode_desc'] = $result['pcode']->desc;
+        }
+        unset($result['pcode']);
+        echo json_encode($result);
+    }
+    
     public function order_submit()
     {
         $this->load->model('Others_model');
@@ -293,6 +315,7 @@ class Shopping_bag extends CI_Controller
 //		$selectedCouponId = $this->input->post('selected_coupon');
 		$selectedDeliverId = $this->input->post('deliver-type');
         $promocode = $this->input->post('promocode');
+        
         
         $user_info = array(
             'name' => $receiverName,
@@ -309,6 +332,25 @@ class Shopping_bag extends CI_Controller
         {
             $user_info['customer_id'] = $this->User_model->record_customer($user_info);    
         }
+        
+        $pcode_chk_result = NULL;
+        if(!empty($promocode))
+        {
+            $this->load->model('Promocode_model');
+            $buy_amount = $this->cart->total();
+            $pcode_chk_result = $this->Promocode_model->check_code($promocode, $user_info['customer_id'], $buy_amount);
+            
+            if($pcode_chk_result['success'] == FALSE)
+            {
+                echo json_encode(array(
+                    'success' => FALSE,
+                    'error' => $pcode_chk_result['error'],
+                ));
+                return;
+            }
+        }
+        
+        
         
 		$store_order = $this->Others_model->get_current_store_order();
         $store_order_id = $store_order['store_order_id'];
@@ -334,13 +376,18 @@ class Shopping_bag extends CI_Controller
             $cart_info['total_items'] += $i['qty'];
         }
         
-        $order_id = $this->Order_model->add_order($user_info, $cart_info, $store_order_id, $selectedDeliverId, -1);
+        $order_id = $this->Order_model->add_order($user_info, $cart_info, $store_order_id, $selectedDeliverId, $pcode_chk_result);
         
         $this->cart->destroy();
         $invoice_url = base_url('index.php/order/display/'.$order_id);
         
+        //void the promocode  and set the used datetime if used
+        if(!empty($promocode))
+        {
+            $this->Promocode_model->use_code($pcode_chk_result['pcode']->id);
+        }
         
-        //Omit sending email until testing online server
+        //TODO: sending email when switch to online server
 //		$order_detail = file_get_contents($invoice_url);
 //		$header = 'เรียน คุณ '.$receiverName.'<br/><br/>'
 //				.'ขอบคุณที่สั่งซื้อสิ้นค้าจาก Prittila คุณสามารถดูรายละเอียดได้จากด้านล่างค่ะ <br/><br/>';
@@ -348,7 +395,7 @@ class Shopping_bag extends CI_Controller
         //$this->Others_model->email($receiverEmail, 'ข้อมูลการสั่งซื้อสินค้า', $header.$order_detail.$footer);
 		
 		echo json_encode(array(
-            'success' => 'true',
+            'success' => TRUE,
             'invoice_url' => $invoice_url,
         ));
     }
