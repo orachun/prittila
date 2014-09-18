@@ -1,50 +1,59 @@
-<div class="product-list">
+<div class="promocode-list">
     <table class="admin-table table table-striped">
         <thead>
-		<th>ID</th>
-		<th>Name</th>
-		<th>Link</th>
-		<th>Price/Cost</th>
-		<th>Avail. Color</th>
-		<th>Avail. Size</th>
-		<th>Status</th>
+		<th>(ID) Code</th>
+		<th>Desc</th>
+		<th>Type</th>
+		<th>Value</th>
+		<th>Amount Threshold</th>
+                <th>Customer</th>
+		<th>Expiring Datetime</th>
+		<th>Used Datetime</th>
 		<th>Actions</th>
         </thead>
         <tbody>
-			<?php
-			foreach ($products as $i => $p) :
-				$link = base_url() . 'index.php/product/detail/' . $p['product_id'];
-			?>
-	            <tr class="<?php echo $p['status'] == 'I'?'disabled':'';?>" pid="<?php echo $p['product_id']; ?>">
-	                <td><?php echo $p['product_id']; ?></td>
-	                <td><?php echo $p['name']; ?></td>
-	                <td><a href="<?php echo $link; ?>" target="_blank"><?php echo $link; ?></a></td>
-	                <td><?php echo $p['unit_price'] . '/' . $p['cost']; ?></td>
-	                <td><?php foreach ($p['avail_colors'] as $cen => $cth) echo $cen.' '; ?></td>
-	                <td><?php foreach ($p['avail_sizes'] as $s) echo $s.' '; ?></td>
-	                <td><?php echo $p['status']; ?></td>
-	                <td>
-						<button pid="<?php echo $p['product_id']; ?>" class="inactivate-btn" status="<?php echo $p['status']; ?>">
-							<?php echo $p['status'] == 'A' ? 'Inactivate' : 'Activate'; ?>
-						</button> 
-					</td>
-	            </tr>
-<?php endforeach; ?>
+            <?php foreach ($promocodes as $i => $p) :?>
+                <tr class="" code_id="<?php echo $p['id']; ?>">
+                    <td>(<?php echo $p['id']; ?>) <?php echo $p['code'];?></td>
+                    <td><?php echo $p['desc'];?></td>
+                    <td><?php echo ($p['type'] == Promocode_model::$TYPE_PERCENT ? 'Percent' : 'Value') ?></td>
+                    <td><?php echo $p['value'];?></td>
+                    <td><?php echo $p['amount_threshold'];?></td>
+                    <td><?php echo ($p['customer_id'] == NULL ? 'Any':$p['customer_id']);?></td>
+                    <td><?php echo $p['expire_datetime'];?></td>
+                    <td><?php echo $p['used_datetime'];?></td>
+                    <td>&nbsp;</td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
+    
+    <div>
+        <form id="add-promo-code">
+            Type : <select name="type">
+                <option value="<?php echo Promocode_model::$TYPE_PERCENT;?>">Percent</option>
+                <option value="<?php echo Promocode_model::$TYPE_VALUE;?>">Value</option>
+            </select><br/>
+            Value : <input type="number" name="value"/><br/>
+            Amount Threshold: <input type="number" name="threshold"/> Baht<br/>
+            Valid Days: <input type="number" name="valid-days"/> Days<br/>
+            Customer ID: <input type="number" name="customer-id"/><br/>
+            <button id="add-promo-code-submit">Submit</button>
+        </form>
+    </div>
 </div>
 
 <script type="text/javascript">
 	$(function(){
-		$('.product-list .inactivate-btn').click(function(){
-			var pid = ($(this).attr('pid'));
-			var status = $(this).attr('status');
-			if(status == "A" ? confirm("Inactivate product id "+pid+"?") : confirm("Activate product id "+pid+"?"))
-			{
-				$.post(base_url+'index.php/admin/set_product_status', {"pid":pid, "status": status == "A" ? "I" : "A"}, function(){
-					$('.product-list').parent().load(base_url+'index.php/admin/products');
-				});
-			}
-		});
+		$('#add-promo-code #add-promo-code-submit').click(function(e){
+                    e.preventDefault();
+                    $('.promocode-list').waiting();
+                    $.post(
+                        base_url+'index.php/admin/add_promocode', 
+                        $('#add-promo-code').serialize(),
+                        function(){
+                            $('.promocode-list').parent().load(base_url+'index.php/admin/promocodes');
+                        });
+                });
 	});
 </script>

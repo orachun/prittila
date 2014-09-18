@@ -43,6 +43,7 @@
                 <li><a href="slideshow" role="tab" data-toggle="tab">Main Slideshow</a></li>
                 <li><a href="page" role="tab" data-toggle="tab">Pages</a></li>
                 <li><a href="customer" role="tab" data-toggle="tab">Customers</a></li>
+                <li><a href="promocodes" role="tab" data-toggle="tab">Promocodes</a></li>
             </ul>
 
             <!-- Tab panes -->

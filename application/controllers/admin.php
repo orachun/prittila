@@ -279,8 +279,34 @@ class Admin extends CI_Controller
     
     public function promocodes()
     {
-        //TODO: implement this
-/        $data['products'] = $this->Product_model->get_admin_products();
-//		$this->load->view('admin/products', $data);
+        $this->load->model('Promocode_model');
+        $data['promocodes'] = $this->Promocode_model->get_promocodes();
+        $this->load->view('admin/promocode', $data);
+    }
+    
+    public function add_promocode()
+    {
+        $this->load->model('Promocode_model');
+        $cus_id = $this->input->post('customer-id');
+        $amount_threshold = $this->input->post('threshold');
+        $valid_days = $this->input->post('valid-days');
+        $code = $this->Promocode_model->create(
+                $this->input->post('type'), 
+                $this->input->post('value'), 
+                empty($cus_id)?  NULL : $cus_id, 
+                empty($amount_threshold)? 0 : $amount_threshold, 
+                empty($valid_days) ? NULL : $valid_days
+                );
+        echo json_encode($code);
+    }
+    public function test()
+    {
+        error_reporting(E_ALL);
+        try {
+            
+        create('V', 50, NULL, 0, NULL);
+        } catch (Exception $ex) {
+            echo json_encode($ex);
+        }
     }
 }
