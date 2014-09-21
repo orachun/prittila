@@ -158,8 +158,8 @@ function prepare_fb_desc($desc, $product_info, $link) {
         //$color_list .= $c[1] . ', ';
         $color_list .= $c.',';
     }
-    $color_list = substr($color_list, 0, strlen($color_list) - 2);
-    $size_list = substr($size_list, 0, strlen($size_list) - 2);
+    $color_list = substr($color_list, 0, strlen($color_list) - 1);
+    $size_list = substr($size_list, 0, strlen($size_list) - 1);
 
 
     $desc = str_replace("{desc}", $product_info['desc'], $desc);

@@ -56,7 +56,7 @@
             $(function() {
                 $('#main-tabs').on('show.bs.tab', function(e) {
                     $('body').waiting();
-                    $('#main-tab-content').load(e.target.href, function() {
+                    $('#main-tab-content').load(e.target.href+'?t='+new Date().getTime(), function() {
                         $('body').waiting('done');
                     });
                 });

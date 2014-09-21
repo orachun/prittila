@@ -43,6 +43,10 @@ function form_data_to_JSON(form_selector)
     return form_data;
 }
 
+function is_array(obj)
+{
+    return obj instanceof Array;
+}
 
 
 function create_upload_form(container_selector, success_callback, error_callback, filename_placeholder)

@@ -52,45 +52,56 @@
         Image URLs: <textarea name="imgs"></textarea><br/>
         Facebook Desc: (<?php echo fb_desc_placeholder_list();?>)
 		<textarea name="fb_desc"><?php echo fb_default_desc();?></textarea><br/>
+                <label><input type="checkbox" name="print-request">Print Request Only</label>
         <div><input class="submit-btn" type="button" value="Submit"/></div>
     </form>
+    <pre id="add-product-request"></pre>
 </div>
-
 <script type="text/javascript">
 	$(function(){
 			
-        $('.color_picker').click(function(){
-            $('#color-text').val($('#color-text').val()+$(this).html()+"\n");
-            return false;
-        });    
+            $('.color_picker').click(function(){
+                $('#color-text').val($('#color-text').val()+$(this).html()+"\n");
+                return false;
+            });    
             
 		$('.add-product .submit-btn').click(function(){
 			$('.add-product').waiting();
-
 			var size = '';
 			$('.add-product input[name="size"]:checked').each(function(index, element){
 				size += $(element).val()+";";
 			});
-			var color = '';
-//			$('.add-product input[name="color"]:checked').each(function(index, element){
-//				color += $(element).val()+";";
-//			});
-			$.post(base_url+'index.php/admin/add_product_submit', $('.add-product form').serialize()
-                    //+"&color="+color
-                    +"&size="+size
-                            //    +'&access_token='+fb_access_token
-                        , function(data){
-                                fb_post_photos(data.imgs, data.fb_desc, function(){
-                                    $('.add-product').parent().load(base_url+'index.php/admin/add_product_form');
-                                    $('body').append('<div>'+data+'</div>');
-                                }, function(){
-                                    alert('Cannot upload photo to facebook');
-                                    $('.add-product').waiting('done');
-                                });
-                                
-			}, 'json');
+                        if(form_data_to_JSON('.add-product form')['print-request'] != 'on')
+                        {
+                            $.post(base_url+'index.php/admin/add_product_submit', $('.add-product form').serialize()
+                        +"&size="+size
+                            , function(data){
+                                    fb_post_photos(data.imgs, data.fb_desc, function(){
+                                        $('.add-product').parent().load(base_url+'index.php/admin/add_product_form');
+                                        $('body').append('<div>'+data+'</div>');
+                                    }, function(){
+                                        alert('Cannot upload photo to facebook');
+                                        $('.add-product').waiting('done');
+                                    });
+                            }, 'json');
+                        }
+                        else
+                        {
+                            var req = "$.post(base_url+'index.php/admin/add_product_submit', "+$('.add-product form').serialize()+'&size=' + size
+                            + ", function(data){ "
+                                    + "fb_post_photos(data.imgs, data.fb_desc, function(){ "
+                                        + "$('.add-product').parent().load(base_url+'index.php/admin/add_product_form'); "
+                                        + "$('body').append('<div>'+data+'</div>'); "
+                                    + "}, function(){ "
+                                        + "alert('Cannot upload photo to facebook'); "
+                                        + "$('.add-product').waiting('done'); "
+                                    + "}); "
+                            + "}, 'json'); ";
+                            $('.add-product #add-product-request').text(req);
+                            $('.add-product form')[0].reset();
+                            $('.add-product').waiting('done');
+                        }
 		});
 
-		//initEditor('.add-product textarea[name="desc"]');
 	});
 </script>

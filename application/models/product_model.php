@@ -141,7 +141,7 @@ class Product_model extends CI_Model
     {
         $this->load->helper('image');
         $this->load->helper('facebook');
-        $p['cat_name'] = get_cat($p['cat_id']);
+        $p['cat_name'] = $this->get_cat($p['cat_id']);
                 
 		//Save product data
         $this->db->insert('product', array(

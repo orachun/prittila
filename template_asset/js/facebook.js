@@ -102,7 +102,9 @@ function _fb_get_album_id(finish_callback, error_callback)
                                 {
                                     "name": album_name,
                                     "message": album_name,
-                                    "privacy": 'EVERYONE',
+                                    "privacy": {
+                                        "value": 'EVERYONE'
+                                    },
                                 },
                                 function(response) {
                                     if (response && !response.error) {
@@ -126,7 +128,7 @@ function _fb_get_album_id(finish_callback, error_callback)
     });
 }
 
-var mths = ['', 'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+var mths = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
 function _fb_get_album_name()
 {
     var name = "สินค้าประจำเดือน ";
