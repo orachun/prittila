@@ -162,6 +162,7 @@ function prepare_fb_desc($desc, $product_info, $link) {
     $size_list = substr($size_list, 0, strlen($size_list) - 1);
 
 
+    $desc = str_replace("{pid}", $product_info['display_id'], $desc);
     $desc = str_replace("{desc}", $product_info['desc'], $desc);
     $desc = str_replace("{name}", $product_info['name'], $desc);
     $desc = str_replace("{unit_price}", $product_info['unit_price'], $desc);
@@ -176,11 +177,12 @@ function prepare_fb_desc($desc, $product_info, $link) {
 }
 
 function fb_desc_placeholder_list() {
-    return '{desc}, {name}, {unit_price}, {link}, {colors}, {sizes}';
+    return '{pid}, {desc}, {name}, {unit_price}, {link}, {colors}, {sizes}';
 }
 
 function fb_default_desc() {
-    return "{name}: {unit_price} บาท
+    return "{pid}
+{name}: {unit_price} บาท
 สี: {colors} ไซส์: {sizes}
 {desc}
 ดูเต็มๆที่ {link}

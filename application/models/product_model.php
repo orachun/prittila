@@ -159,7 +159,8 @@ class Product_model extends CI_Model
         $pid = $this->db->insert_id();
         
         $this->db->where('product_id', $pid);
-        $this->db->update('product', array('display_id' => 'P'.date('md').'-'.$pid)); 
+        $p['display_id'] = 'P'.date('md').'-'.$pid;
+        $this->db->update('product', array('display_id' => $p['display_id'])); 
         
 		//Save product available sizes and colors
         foreach($p['size'] as $s)
